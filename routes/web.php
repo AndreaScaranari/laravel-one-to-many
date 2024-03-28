@@ -34,13 +34,13 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
 
     Route::resource('projects', AdminProjectController::class)->withTrashed(['show', 'edit', 'update']);
     
-    // Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
-    // Route::get('/projects/create', [ProjectController::class, 'create'])->name('project.create');
-    // Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('project.show');
-    // Route::post('/projects', [ProjectController::class, 'store'])->name('project.store');
-    // Route::get('/projects/{project}/edit', [ProjectController::class, 'edit'])->name('project.edit');
-    // Route::put('/projects/{project}', [ProjectController::class, 'update'])->name('project.update');
-    // Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('project.destroy');
+    // Route::get('/projects', [AdminProjectController::class, 'index'])->name('projects.index');
+    // Route::get('/projects/create', [AdminProjectController::class, 'create'])->name('projects.create');
+    // Route::get('/projects/{project}', [AdminProjectController::class, 'show'])->name('projects.show');
+    // Route::post('/projects', [AdminProjectController::class, 'store'])->name('projects.store');
+    // Route::get('/projects/{project}/edit', [AdminProjectController::class, 'edit'])->name('projects.edit');
+    // Route::put('/projects/{project}', [AdminProjectController::class, 'update'])->name('projects.update');
+    // Route::delete('/projects/{project}', [AdminProjectController::class, 'destroy'])->name('projects.destroy');
 });
 
 Route::middleware('auth')->group(function () {

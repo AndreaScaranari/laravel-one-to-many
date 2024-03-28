@@ -6,9 +6,9 @@
     <header class="d-flex align-items-center justify-content-between flex-column">
         <h1 class="m-0">Progetti</h1>
         <div class="d-flex justify-content-between w-100 p-3">
-            <a href="{{ route('admin.projectss.create') }}" class="btn btn-success d-block">
+            <a href="{{ route('admin.projects.create') }}" class="btn btn-success d-block">
                 <i class="fas fa-plus me-2"></i>Nuovo</a>
-            <form action="{{ route('admin.projectss.index') }}" method="GET">
+            <form action="{{ route('admin.projects.index') }}" method="GET">
                 <div class="input-group">
                     <select class="form-select" name="filter">
                         <option value="">Tutti</option>
@@ -18,7 +18,7 @@
                     <button class="btn btn-outline-secondary" type="submit">Filtra</button>
                 </div>
             </form>
-            <a href="{{ route('admin.projectss.trash') }}" class="btn btn-secondary d-block">
+            <a href="{{ route('admin.projects.trash') }}" class="btn btn-secondary d-block">
                 <i class="fas fa-trash-arrow-up me-2"></i>Guarda Cestino</a>
         </div>
 
@@ -37,13 +37,13 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($projectss as $projects)
+            @forelse ($projects as $project)
                 <tr>
-                    <th scope="row">{{ $projects->id }}</th>
-                    <td>{{ $projects->title }}</td>
-                    <td>{{ $projects->slug }}</td>
+                    <th scope="row">{{ $project->id }}</th>
+                    <td>{{ $project->title }}</td>
+                    <td>{{ $project->slug }}</td>
                     <td>
-                        <form action="{{ route('admin.projectss.toggle', $projects) }}" method="POST"
+                        <form action="{{ route('admin.projects.toggle', $project) }}" method="POST"
                             class="publication-form" onclick="this.submit()">
                             @csrf
                             @method('PATCH')

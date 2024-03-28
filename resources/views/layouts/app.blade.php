@@ -34,7 +34,7 @@
 <body>
     <div id="app">
 
-        @include('includes.layouts.navbar')
+        @include('layouts.navbar')
 
         <main class="container py-3">
             @include('includes.alerts')
