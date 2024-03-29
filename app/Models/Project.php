@@ -22,4 +22,9 @@ class Project extends Model
         return asset('storage/' . $this->image);
     }
 
+    public function getAbstract()
+    {
+        return substr($this->content, 0, 350);
+    }
+
 }

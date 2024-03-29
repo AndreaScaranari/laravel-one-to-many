@@ -24,10 +24,11 @@
                 </div>
 
                 <div class="col">
-                    <h5 class="card-title mb-3">{{ $project->title }}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <h5 class="card-title my-3">{{ $project->title }}</h5>
+                    {{-- <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6> --}}
+                    <p class="card-text">{{ $project->getAbstract() }}<a
+                            href="{{ route('guest.project.show', $project->slug) }}">[...]</a>
+                    </p>
                 </div>
 
                 {{-- <a href="#" class="card-link">Card link</a>
