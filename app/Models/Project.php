@@ -12,7 +12,7 @@ class Project extends Model
     use HasFactory;
     use softDeletes;
 
-    protected $fillable = ['title', 'slug', 'content', 'is_published'];
+    protected $fillable = ['title', 'slug', 'content', 'is_published', 'type_id'];
 
     public function getFormattedDate($column, $format = 'd/m/Y H:i:s'){
     return Carbon::create($this->$column)->format($format);    

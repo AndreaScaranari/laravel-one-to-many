@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
@@ -37,7 +38,9 @@ class ProjectController extends Controller
     public function create()
     {
         $project = new Project();
-        return view('admin.projects.create', compact('project'));
+        // $types = Type::all();
+        $types = Type::select('label', 'id')->get();
+        return view('admin.projects.create', compact('project', 'types'));
     }
 
     /**
@@ -51,6 +54,7 @@ class ProjectController extends Controller
             'content' => 'required|string',
             'image' => 'nullable|image',
             'is_published' => 'nullable|boolean',
+            'type_id' => 'nullable|exists:types,id'
         ],
         [
             'title.required' => 'Il titolo è obbligatorio',
@@ -60,7 +64,7 @@ class ProjectController extends Controller
             'content.required' => 'Il contenuto è obbligatorio',
             'image.image' => 'Il file inserito non è un\'immagine',
             'is_published.boolean' => 'Il valore del campo di pubblicazione non è valido',
-
+            'type_id.exists' => 'Tipologia non valida o non esistente'
         ]);
 
         $data = $request->all();
@@ -98,7 +102,10 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::select('label', 'id')->get();
+        // $types = Type::all();
+
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -112,6 +119,7 @@ class ProjectController extends Controller
             'content' => ['required', 'string'],
             'image' => ['nullable', 'image'],
             'is_published' => ['nullable', 'boolean'],
+            'type_id' => ['nullable', 'exists:types,id']
         ],
         [
             'title.required' => 'Il titolo è obbligatorio',
@@ -121,6 +129,7 @@ class ProjectController extends Controller
             'content.required' => 'Il contenuto è obbligatorio',
             'image.image' => 'Il file inserito non è un\'immagine',
             'is_published.boolean' => 'Il valore del campo di pubblicazione non è valido',
+            'type_id.exists' => 'Tipologia non valida o non esistente'
             
         ]);
 

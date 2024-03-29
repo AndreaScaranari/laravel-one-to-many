@@ -21,7 +21,7 @@
                 </div>
             @else
                 <div class="form-text">
-                    Inserisci il titolo del project
+                    Inserisci il titolo del progetto
                 </div>
             @enderror
         </div>
@@ -40,18 +40,37 @@
                 name="content" id="content" rows="12" required>
                         {{ old('content', $project->content) }}
             </textarea>
+            @error('content')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="form-text">
+                    Inserisci il contenuto del progetto
+                </div>
+            @enderror
         </div>
-        @error('content')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-        @else
-            <div class="form-text">
-                Inserisci il contenuto del progetto
-            </div>
-        @enderror
     </div>
-    <div class="col-11">
+    <div class="col-5">
+        <div class="mb-3">
+            <label for="type_id" class="form-label">Seleziona Tipologia</label>
+            <select
+                class="form-select @error('type_id') is-invalid @elseif(old('type_id', '')) is-valid @enderror"
+                id="type_id" name="type_id">
+                <option value="">Nessuna</option>
+                @foreach ($types as $type)
+                    <option value="{{ $type->id }}" @if (old('type_id', $project->type?->id) == $type->id) selected @endif>
+                        {{ $type->label }}</option>
+                @endforeach
+            </select>
+            @error('type_id')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+    </div>
+    <div class="col-6">
         <div class="mb-3">
             {{-- # In precedenza per l'url --}}
 

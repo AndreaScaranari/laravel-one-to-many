@@ -3,8 +3,14 @@
 @section('title', 'Progetti')
 
 @section('content')
-    <header>
-        <h1 class="text-center pb-3">{{ $project->title }}</h1>
+    <header class="text-center pb-3">
+        <h1>{{ $project->title }}</h1>
+        <h5>Tipologia: @if ($project->type)
+                {{ $project->type->label }}
+            @else
+                N/A
+            @endif
+        </h5>
     </header>
 
     <div class="clearfix">

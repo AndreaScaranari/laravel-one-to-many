@@ -43,7 +43,7 @@
                     <th scope="row">{{ $project->id }}</th>
                     <td>{{ $project->title }}</td>
                     <td>{{ $project->slug }}</td>
-                    <td>{{ $project->category ? $project->category->label : '-' }}</td>
+                    <td>{{ $project->type ? $project->type->label : '-' }}</td>
                     <td>
                         <form action="{{ route('admin.projects.toggle', $project) }}" method="POST"
                             class="publication-form" onclick="this.submit()">
