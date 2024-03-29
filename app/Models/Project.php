@@ -27,4 +27,7 @@ class Project extends Model
         return substr($this->content, 0, 350);
     }
 
+    public function type(){
+        return $this->belongsTo(Type::class);
+    }
 }
