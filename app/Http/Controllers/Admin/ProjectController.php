@@ -20,19 +20,24 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
 
-        $filter = $request->query('filter');
+        $publication_filter = $request->query('publication_filter');
+        $type_filter = $request->query('type_filter');
         $query = Project::orderByDesc('updated_at')->orderByDesc('created_at');
 
-        if($filter){
-            $value = $filter === 'published';
+        if($publication_filter){
+            $value = $publication_filter === 'published';
             $query->whereIsPublished($value);
+        }
+
+        if($type_filter){
+            $query->whereTypeId($type_filter);
         }
 
         $projects = $query->paginate(10)->withQueryString();
 
         $types = Type::all();
         
-        return view('admin.projects.index', compact('projects', 'filter', 'types'));
+        return view('admin.projects.index', compact('projects', 'publication_filter', 'types', 'type_filter'));
     }
 
     /**

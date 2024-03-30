@@ -3,17 +3,27 @@
 @section('title', 'Progetti')
 
 @section('content')
+    {{-- Header --}}
     <header class="d-flex align-items-center justify-content-between flex-column">
         <h1 class="m-0">Progetti</h1>
         <div class="d-flex justify-content-between w-100 p-3">
+            {{-- Pulsante crea nuovo --}}
             <a href="{{ route('admin.projects.create') }}" class="btn btn-success d-block">
                 <i class="fas fa-plus me-2"></i>Nuovo</a>
+            {{-- Filtro pubblicati --}}
             <form action="{{ route('admin.projects.index') }}" method="GET">
                 <div class="input-group">
-                    <select class="form-select" name="filter">
-                        <option value="">Tutti</option>
-                        <option value="published" @if ($filter === 'published') selected @endif>Pubblicati</option>
-                        <option value="drafts" @if ($filter === 'drafts') selected @endif>Bozze</option>
+                    <select class="form-select" name="publication_filter">
+                        <option value="">Status</option>
+                        <option value="published" @if ($publication_filter === 'published') selected @endif>Pubblicati</option>
+                        <option value="drafts" @if ($publication_filter === 'drafts') selected @endif>Bozze</option>
+                    </select>
+                    <select class="form-select" name="type_filter">
+                        <option value="">Tipologie</option>
+                        @foreach ($types as $type)
+                            <option value="{{ $type->id }}" @if ($type_filter == $type->id) selected @endif>
+                                {{ $type->label }}</option>
+                        @endforeach
                     </select>
                     <button class="btn btn-outline-secondary" type="submit">Filtra</button>
                 </div>
@@ -21,9 +31,9 @@
             <a href="{{ route('admin.projects.trash') }}" class="btn btn-secondary d-block">
                 <i class="fas fa-trash-arrow-up me-2"></i>Guarda Cestino</a>
         </div>
-
     </header>
 
+    {{-- Intestazione tabella --}}
     <table class="table table-dark table-striped">
         <thead>
             <tr>
@@ -31,12 +41,13 @@
                 <th scope="col">Titolo</th>
                 <th scope="col">Slug</th>
                 <th scope="col">Tipologia</th>
-                <th scope="col">Pubblicato</th>
+                <th scope="col">Status</th>
                 <th scope="col">Creato il</th>
                 <th scope="col">Ultima modifica</th>
                 <th></th>
             </tr>
         </thead>
+        {{-- Corpo tabella --}}
         <tbody>
             @forelse ($projects as $project)
                 <tr>

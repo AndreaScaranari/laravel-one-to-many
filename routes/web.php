@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;;
@@ -41,6 +42,8 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
     // Route::get('/projects/{project}/edit', [AdminProjectController::class, 'edit'])->name('projects.edit');
     // Route::put('/projects/{project}', [AdminProjectController::class, 'update'])->name('projects.update');
     // Route::delete('/projects/{project}', [AdminProjectController::class, 'destroy'])->name('projects.destroy');
+
+    Route::resource('types', TypeController::class)->except('show');
 });
 
 Route::middleware('auth')->group(function () {
