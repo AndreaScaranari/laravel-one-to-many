@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Type;
+use Illuminate\Validation\Rule;
+
 
 class TypeController extends Controller
 {
@@ -30,8 +32,9 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
+        
         $data = $request->validate([
-            'label' => ['required', 'string', Rule::unique('types')->ignore($type->id)],
+            'label' => 'required|string|unique',
             'color' => 'nullable|hex_color'
         ], [
             'label.required' => 'Il nome della tipologia è obbligatorio',
@@ -39,7 +42,11 @@ class TypeController extends Controller
             'color.hex_color' => 'Codice colore non valido'
         ]);
 
-        $type->update($data);
+        $type = new Type();
+
+        $type->fill($data);
+
+        $type->save();
 
         return to_route('admin.types.index', compact('type'))->with('message', "Tipologia $type->label creata con successo")->with('type', 'success');
 
@@ -67,7 +74,7 @@ class TypeController extends Controller
     public function update(Request $request, Type $type)
     {
         $data = $request->validate([
-            'label' => 'required|string|unique',
+            'label' => ['required', 'string', Rule::unique('types')->ignore($type->id)],
             'color' => 'nullable|hex_color'
         ], [
             'label.required' => 'Il nome della tipologia è obbligatorio',
@@ -75,11 +82,7 @@ class TypeController extends Controller
             'color.hex_color' => 'Codice colore non valido'
         ]);
 
-        $type = new Type();
-
-        $type->fill($data);
-
-        $type->save();
+        $type->update($data);
 
         return to_route('admin.types.index', compact('type'))->with('message', "Tipologia $type->label modificata con successo")->with('type', 'success');
     }
