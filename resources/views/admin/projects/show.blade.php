@@ -5,8 +5,9 @@
 @section('content')
     <header class="text-center pb-3">
         <h1>{{ $project->title }}</h1>
-        <h5>Tipologia: @if ($project->type)
-                {{ $project->type->label }}
+        <h5>Tipologia:
+            @if ($project->type)
+                <span class="badge" style="background-color: {{ $project->type->color }}">{{ $project->type->label }}</span>
             @else
                 N/A
             @endif
