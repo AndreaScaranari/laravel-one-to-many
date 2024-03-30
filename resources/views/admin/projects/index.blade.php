@@ -101,6 +101,24 @@
         {{ $projects->links() }}
     @endif
 
+    <section class="my-3" id="type-projects">
+        <h3>Progetti per categoria</h3>
+        <div class="row row-cols-3">
+            @foreach ($types as $type)
+                <div class="col">
+                    <h4 class="mt-3">{{ $type->label }} ({{ count($type->projects) }})</h4>
+                    @forelse ($type->projects as $project)
+                        <div>
+                            <a href="{{ route('admin.projects.show', $project->id) }}"><em>{{ $project->title }}</em></a>
+                        </div>
+                    @empty
+                        <em>Nessun progetto</em>
+                    @endforelse
+                </div>
+            @endforeach
+        </div>
+    </section>
+
 @endsection
 
 
