@@ -34,7 +34,7 @@ class TypeController extends Controller
     {
         
         $data = $request->validate([
-            'label' => 'required|string|unique',
+            'label' => 'required|string|unique:types,label',
             'color' => 'nullable|hex_color'
         ], [
             'label.required' => 'Il nome della tipologia è obbligatorio',
